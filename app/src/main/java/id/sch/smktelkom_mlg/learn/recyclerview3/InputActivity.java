@@ -29,6 +29,14 @@ public class InputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
 
+        hotel = (Hotel) getIntent().getSerializableExtra(MainActivity.HOTEL);
+        if (hotel != null) {
+            setTitle("Edit " + hotel.judul);
+            fillData();
+        } else {
+            setTitle("New Hotel");
+        }
+
         etJudul = (EditText) findViewById(R.id.editTextNama);
         etDeskripsi = (EditText) findViewById(R.id.editTextDeskripsi);
         etDetail = (EditText) findViewById(R.id.editTextDetail);
@@ -49,6 +57,15 @@ public class InputActivity extends AppCompatActivity {
                         doSave();
                     }
                 });
+    }
+
+    private void fillData() {
+        etJudul.setText(hotel.judul);
+        etDeskripsi.setText(hotel.deskripsi);
+        etDetail.setText(hotel.detail);
+        etLokasi.setText(hotel.lokasi);
+        uriFoto = Uri.parse(hotel.foto);
+        ivFoto.setImageURI(uriFoto);
     }
 
     private void doSave() {
